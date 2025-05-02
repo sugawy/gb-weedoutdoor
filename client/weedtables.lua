@@ -50,25 +50,35 @@ CreateThread(function()
     SpawnWeedTable()
 end)
 
-function StartProcessing(time, label, anim, event, data, propModel)
+function StartProcessing(time, label, animation, onComplete, propModel)
     local ped = PlayerPedId()
-    RemoveAttachedProp()
-    if propModel then AttachPropToHand(propModel) end
-
+    if propModel then
+        AttachPropToHand(propModel)
+    end
     FreezeEntityPosition(ped, true)
-    TaskStartScenarioInPlace(ped, anim, 0, true)
-
-    lib.progressBar({
+    TaskStartScenarioInPlace(ped, animation, 0, true)
+    local success = lib.progressBar({
         duration = time,
         label = label,
-        disable = { move = true, car = true, mouse = false, combat = true }
-    }, function(cancelled)
-        ClearPedTasks(ped)
-        FreezeEntityPosition(ped, false)
-        RemoveHandProp()
-        if not cancelled then TriggerServerEvent(event, data) end
-    end)
+        disable = {
+            move = true,
+            car = true,
+            mouse = false,
+            combat = true
+        }
+    })
+    ClearPedTasksImmediately(ped)
+    FreezeEntityPosition(ped, false)
+    RemoveHandProp()
+    if success then
+        if onComplete then
+            onComplete()
+        end
+    else
+        lib.notify({ description = "Cancelled", type = "error" })
+    end
 end
+
 
 lib.registerContext({
     id = 'weed_processing_menu',
@@ -183,7 +193,9 @@ end
 RegisterNetEvent("weedprocessing:processLeaf", function(data)
     lib.callback('weedprocessing:server:checkLeaf', false, function(hasItem)
         if hasItem then
-            StartProcessing(12000, "Processing Weed...", "PROP_HUMAN_PARKING_METER", "weedprocessing:server:processLeaf", data, "bkr_prop_weed_bud_01a")
+            StartProcessing(12000, "Processing Weed...", "PROP_HUMAN_PARKING_METER", function()
+                TriggerServerEvent("weedprocessing:server:processLeaf", data)
+            end, "bkr_prop_weed_bud_01a")
         end
     end, data.leaf)
 end)
@@ -191,7 +203,9 @@ end)
 RegisterNetEvent("weedprocessing:packWeed", function(data)
     lib.callback('weedprocessing:server:checkPack', false, function(hasItems)
         if hasItems then
-            StartProcessing(8000, "Packing Weed...", "PROP_HUMAN_PARKING_METER", "weedprocessing:server:packWeed", data, "sf_prop_sf_bag_weed_01b")
+            StartProcessing(8000, "Packing Weed...", "PROP_HUMAN_PARKING_METER", function()
+                TriggerServerEvent("weedprocessing:server:packWeed", data)
+            end, "sf_prop_sf_bag_weed_01b")
         end
     end, data.bud)
 end)

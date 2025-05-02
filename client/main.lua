@@ -79,6 +79,13 @@ local function CreateWeedPlant(plant)
             onSelect = function()
                 TriggerServerEvent('weed:server:waterPlant', plant.id)
             end
+        },
+        {
+            label = "Destroy Plant",
+            icon = "fas fa-trash",
+            onSelect = function()
+                    TriggerServerEvent('weed:server:destroyPlant', plant.id)
+            end
         }
     })
 

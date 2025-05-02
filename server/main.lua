@@ -153,6 +153,18 @@ RegisterNetEvent('weed:server:getPlantStatus', function(plantId)
     TriggerClientEvent('weed:client:updatePlantStatus', src, plant or nil)
 end)
 
+RegisterNetEvent('weed:server:destroyPlant', function(plantId)
+    local src = source
+
+    MySQL.execute('DELETE FROM weed_plants WHERE id = ?', { plantId })
+    TriggerClientEvent('weed:client:removePlant', -1, plantId)
+
+    lib.notify(src, {
+        description = "Plant destroyed successfully.",
+        type = "success"
+    })
+end)
+
 CreateThread(function()
     while true do
         local plants = MySQL.query.await('SELECT * FROM weed_plants')
