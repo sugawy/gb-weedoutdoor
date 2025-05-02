@@ -46,7 +46,7 @@ Run this command:
 
 (example)
 
-giveitem <id> weed_whitewidow_seed 1
+giveitem (id) weed_whitewidow_seed 1
 
 → Press USE in your inventory  
 → A progress bar appears with a planting animation  
