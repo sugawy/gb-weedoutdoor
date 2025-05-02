@@ -3,20 +3,41 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local spawnedPlantObjects = {}
 
 local function OpenPlantStatusUI(plant)
-    lib.registerMenu({
-        id = 'plant_status_menu',
-        title = plant.label or 'Plant Status',
-        position = 'top-right',
+    lib.registerContext({
+        id = 'plant_status_context',
+        title = plant.label or '🌿 Plant Status',
         options = {
-            { label = 'Health: ' .. (plant.health or 0) .. '%', icon = 'heartbeat' },
-            { label = 'Food: ' .. (plant.food or 0) .. '%', icon = 'utensils' },
-            { label = 'Water: ' .. (plant.water or 0) .. '%', icon = 'tint' },
-            { label = 'Progress: ' .. (plant.progress or 0) .. '%', icon = 'chart-line' },
-            { label = 'Stage: ' .. (plant.stage or 'Unknown'), icon = 'seedling' },
-        },
-    }, function() end)
-    lib.showMenu('plant_status_menu')
+            {
+                title = 'Health',
+                icon = 'heartbeat',
+                description = tostring(plant.health or 0) .. '%'
+            },
+            {
+                title = 'Food',
+                icon = 'utensils',
+                description = tostring(plant.food or 0) .. '%'
+            },
+            {
+                title = 'Water',
+                icon = 'tint',
+                description = tostring(plant.water or 0) .. '%'
+            },
+            {
+                title = 'Progress',
+                icon = 'chart-line',
+                description = tostring(plant.progress or 0) .. '%'
+            },
+            {
+                title = 'Stage',
+                icon = 'seedling',
+                description = tostring(plant.stage or 'Unknown')
+            }
+        }
+    })
+
+    lib.showContext('plant_status_context')
 end
+
 
 local function CreateWeedPlant(plant)
     if not plant or not plant.coords or not plant.id then return nil end
