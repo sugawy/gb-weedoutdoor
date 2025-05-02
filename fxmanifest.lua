@@ -2,11 +2,12 @@ fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
 
-author 'GrossBean'
+author 'GrossBean & edited by sugawy'
 description 'Allows players to grow weed plants outdoors, harvest them, and progress through growth stages'
-version '1.0.0'
+version '1.0.5'
 
 shared_scripts {
+    '@ox_lib/init.lua',
     'config.lua',
     '@qb-core/shared/locale.lua',
     'locales/en.lua',
@@ -23,14 +24,3 @@ server_scripts {
     'server/main.lua'
 }
 
-ui_page 'html/index.html'
-
-files {
-    'html/index.html'
-}
-
-dependencies {
-    'qb-target',
-    'qb-core',
-    'qb-menu'
-}
