@@ -116,18 +116,26 @@ RegisterNetEvent('weed:client:updatePlantStatus', function(plant)
 end)
 
 RegisterNetEvent('weed:client:useSeed', function(seedType)
-    if IsPedInAnyVehicle(PlayerPedId(), false) then return end
-    TaskStartScenarioInPlace(PlayerPedId(), "world_human_gardener_plant", 0, true)
-    lib.progressBar({
+    local ped = PlayerPedId()
+    if IsPedInAnyVehicle(ped, false) then
+        return
+    end
+    TaskStartScenarioInPlace(ped, "world_human_gardener_plant", 0, true)
+    local success = lib.progressBar({
         duration = 5000,
         label = 'Planting Seed...',
-        disable = { move = true, car = true, mouse = false, combat = true }
-    }, function(cancelled)
-        ClearPedTasksImmediately(PlayerPedId())
-        if not cancelled then
-            TriggerServerEvent('weed:server:plantSeed', GetEntityCoords(PlayerPedId()), seedType)
-        end
-    end)
+        disable = {
+            move = true,
+            car = true,
+            mouse = false,
+            combat = true
+        }
+    })
+    ClearPedTasksImmediately(ped)
+    if success then
+        TriggerServerEvent('weed:server:plantSeed', GetEntityCoords(ped), seedType)
+    else
+    end
 end)
 
 RegisterNetEvent('weed:client:addNewPlant', function(plant)
