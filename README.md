@@ -1,4 +1,4 @@
-# made it work cause i was bored. thanks grossbean
+# made it work with qbox cause i was bored. thanks grossbean
 
 Hi.
 
