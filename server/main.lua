@@ -104,7 +104,7 @@ RegisterNetEvent('weed:server:feedPlant', function(plantId)
 end)
 
 RegisterNetEvent('weed:server:waterPlant', function(plantId)
-    updatePlantResource(source, plantId, "water", "water_bottle", 20, "watered")
+    updatePlantResource(source, plantId, "water", "water", 20, "watered")
 end)
 
 RegisterNetEvent('weed:server:harvestPlant', function(plantId)
