@@ -181,8 +181,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g White Widow',
-        client = {},
-        image = 'weed_baggy_whitewidow.png',
+        client = {image = 'weed_baggy_whitewidow.png',},
+        
     },
     
     ['weed_skunk'] = {
@@ -191,8 +191,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g Skunk',
-        client = {},
-        image = 'weed_baggy_skunk.png',
+        client = { image = 'weed_baggy_skunk.png',},
+       
     },
     
     ['weed_purplehaze'] = {
@@ -201,8 +201,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g Purple Haze',
-        client = {},
-        image = 'weed_baggy_purplehaze.png',
+        client = { image = 'weed_baggy_purplehaze.png',},
+       
     },
     
     ['weed_ogkush'] = {
@@ -211,8 +211,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g OG Kush',
-        client = {},
-        image = 'weed_baggy_ogkush.png',
+        client = { image = 'weed_baggy_ogkush.png',},
+       
     },
     
     ['weed_amnesia'] = {
@@ -221,8 +221,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g Amnesia',
-        client = {},
-        image = 'weed_baggy_amnesia.png',
+        client = { image = 'weed_baggy_amnesia.png',},
+       
     },
     
     ['weed_ak47'] = {
@@ -231,8 +231,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = false,
         description = 'A weed bag with 2g AK47',
-        client = {},
-        image = 'weed_baggy_ak47.png',
+        client = { image = 'weed_baggy_ak47.png',},
+       
     },
     
     ['weed_whitewidow_seed'] = {
@@ -241,8 +241,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of White Widow',
-        client = {},
-        image = 'weed_whitewidow_seed.png',
+        client = { image = 'weed_whitewidow_seed.png',},
+       
     },
     
     ['weed_skunk_seed'] = {
@@ -251,8 +251,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of Skunk',
-        client = {},
-        image = 'weed_skunk_seed.png',
+        client = {image = 'weed_skunk_seed.png',},
+        
     },
     
     ['weed_purplehaze_seed'] = {
@@ -261,8 +261,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of Purple Haze',
-        client = {},
-        image = 'weed_purplehaze_seed.png',
+        client = { image = 'weed_purplehaze_seed.png',},
+       
     },
     
     ['weed_ogkush_seed'] = {
@@ -271,8 +271,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of OG Kush',
-        client = {},
-        image = 'weed_ogkush_seed.png',
+        client = { image = 'weed_ogkush_seed.png',},
+       
     },
     
     ['weed_amnesia_seed'] = {
@@ -281,8 +281,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of Amnesia',
-        client = {},
-        image = 'weed_amnesia_seed.png',
+        client = { image = 'weed_amnesia_seed.png',},
+       
     },
     
     ['weed_ak47_seed'] = {
@@ -291,8 +291,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A weed seed of AK47',
-        client = {},
-        image = 'weed_ak47_seed.png',
+        client = { image = 'weed_ak47_seed.png',},
+       
     },
     
     ['empty_weed_bag'] = {
@@ -301,8 +301,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'A small empty bag',
-        client = {},
-        image = 'weed_baggy_empty.png',
+        client = {image = 'weed_baggy_empty.png',},
+        
     },
     
     ['weed_nutrition'] = {
@@ -311,8 +311,8 @@ ADD THESE INTO OX_INV
         stack = true,
         close = true,
         description = 'Plant nutrition',
-        client = {},
-        image = 'weed_nutrition.png',
+        client = {image = 'weed_nutrition.png',},
+        
     },
 ---
 
