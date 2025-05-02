@@ -2,63 +2,46 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 local tableCoords = vector3(-36.9, -2689.80, 6.0)
 local propHash = `bkr_prop_weed_table_01a`
-local spawnedTable = nil
-local attachedProp = nil
-local handProp = nil
+local spawnedTable, attachedProp, handProp = nil, nil, nil
 
 function RemoveAttachedProp()
-    if attachedProp and DoesEntityExist(attachedProp) then
-        DeleteObject(attachedProp)
-        attachedProp = nil
-    end
+    if attachedProp and DoesEntityExist(attachedProp) then DeleteObject(attachedProp) end
+    attachedProp = nil
 end
 
 function AttachPropToHand(propModel)
-    local playerPed = PlayerPedId()
+    local ped = PlayerPedId()
     local prop = CreateObject(GetHashKey(propModel), 0, 0, 0, true, true, true)
-    AttachEntityToEntity(prop, playerPed, GetPedBoneIndex(playerPed, 57005), 0.12, 0.02, -0.02, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
+    AttachEntityToEntity(prop, ped, GetPedBoneIndex(ped, 57005), 0.12, 0.02, -0.02, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
     handProp = prop
 end
 
 function RemoveHandProp()
-    if handProp and DoesEntityExist(handProp) then
-        DeleteObject(handProp)
-        handProp = nil
-    end
+    if handProp and DoesEntityExist(handProp) then DeleteObject(handProp) end
+    handProp = nil
 end
 
 function SpawnWeedTable()
     RequestModel(propHash)
-    while not HasModelLoaded(propHash) do
-        Wait(100)
-    end
+    while not HasModelLoaded(propHash) do Wait(100) end
 
-    if DoesEntityExist(spawnedTable) then
-        DeleteEntity(spawnedTable)
-    end
+    if DoesEntityExist(spawnedTable) then DeleteEntity(spawnedTable) end
 
     spawnedTable = CreateObject(propHash, tableCoords.x, tableCoords.y, tableCoords.z - 1.0, true, false, false)
     FreezeEntityPosition(spawnedTable, true)
     SetEntityInvincible(spawnedTable, true)
 
-    exports['qb-target']:AddTargetEntity(spawnedTable, {
-        options = {
-            {
-                label = "💨 Process Weed Leafs",
-                icon = "fas fa-cannabis",
-                action = function()
-                    OpenProcessingMenu()
-                end
-            },
-            {
-                label = "📦 Pack Weed",
-                icon = "fas fa-box",
-                action = function()
-                    OpenPackingMenu()
-                end
-            },
+    exports.ox_target:addLocalEntity(spawnedTable, {
+        {
+            label = "Process Weed Leafs",
+            icon = "fas fa-cannabis",
+            onSelect = function() OpenProcessingMenu() end
         },
-        distance = 2.0
+        {
+            label = "Pack Weed",
+            icon = "fas fa-box",
+            onSelect = function() OpenPackingMenu() end
+        }
     })
 end
 
@@ -67,95 +50,138 @@ CreateThread(function()
     SpawnWeedTable()
 end)
 
-function StartProcessing(time, label, animation, event, data, propModel)
-    local playerPed = PlayerPedId()
-
+function StartProcessing(time, label, anim, event, data, propModel)
+    local ped = PlayerPedId()
     RemoveAttachedProp()
+    if propModel then AttachPropToHand(propModel) end
 
-    if propModel then
-        AttachPropToHand(propModel)
-    end
+    FreezeEntityPosition(ped, true)
+    TaskStartScenarioInPlace(ped, anim, 0, true)
 
-    FreezeEntityPosition(playerPed, true)
-    TaskStartScenarioInPlace(playerPed, animation, 0, true)
-
-    QBCore.Functions.Progressbar("processing_weed", label, time, false, true, {
-        disableMovement    = true,
-        disableCarMovement = true,
-        disableMouse       = false,
-        disableCombat      = true,
-    }, {}, {}, {}, function()
-        ClearPedTasks(playerPed)
-        FreezeEntityPosition(playerPed, false)
+    lib.progressBar({
+        duration = time,
+        label = label,
+        disable = { move = true, car = true, mouse = false, combat = true }
+    }, function(cancelled)
+        ClearPedTasks(ped)
+        FreezeEntityPosition(ped, false)
         RemoveHandProp()
-        TriggerServerEvent(event, data)
-    end, function()
-        ClearPedTasks(playerPed)
-        FreezeEntityPosition(playerPed, false)
-        RemoveHandProp()
+        if not cancelled then TriggerServerEvent(event, data) end
     end)
 end
 
-local leafToBud = {
-    ["weed_ak47_leaf"]         = "ak47",
-    ["weed_amnesia_leaf"]      = "amnesia",
-    ["weed_purple_haze_leaf"]  = "purplehaze",
-    ["weed_og_kush_leaf"]      = "ogkush",
-    ["weed_skunk_leaf"]        = "skunk",
-    ["weed_white_widow_leaf"]  = "white_widow"
-}
+lib.registerContext({
+    id = 'weed_processing_menu',
+    title = 'Process Weed Leafs',
+    options = {
+        {
+            title = 'Process AK47',
+            description = '1 AK47 Leaf → 1 AK47 Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_ak47_leaf', bud = 'weed_ak47_bud' }
+        },
+        {
+            title = 'Process AMNESIA',
+            description = '1 Amnesia Leaf → 1 Amnesia Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_amnesia_leaf', bud = 'weed_amnesia_bud' }
+        },
+        {
+            title = 'Process PURPLE HAZE',
+            description = '1 Purple Haze Leaf → 1 Purple Haze Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_purple_haze_leaf', bud = 'weed_purple_haze_bud' }
+        },
+        {
+            title = 'Process OG KUSH',
+            description = '1 OG Kush Leaf → 1 OG Kush Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_og_kush_leaf', bud = 'weed_og_kush_bud' }
+        },
+        {
+            title = 'Process SKUNK',
+            description = '1 Skunk Leaf → 1 Skunk Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_skunk_leaf', bud = 'weed_skunk_bud' }
+        },
+        {
+            title = 'Process WHITE WIDOW',
+            description = '1 White Widow Leaf → 1 White Widow Bud',
+            icon = 'seedling',
+            event = 'weedprocessing:processLeaf',
+            args = { leaf = 'weed_white_widow_leaf', bud = 'weed_white_widow_bud' }
+        }
+    }
+})
 
 function OpenProcessingMenu()
-    local processingMenu = {
-        { header = "🌱 Process Weed Leafs", isMenuHeader = true }
-    }
-
-    for leaf, identifier in pairs(leafToBud) do
-        local displayName = identifier:upper()
-        table.insert(processingMenu, {
-            header = "🌿 Process " .. displayName,
-            txt = "🛠️ Requires: 1 " .. displayName .. " Leaf → Produces: 1 " .. displayName .. " Bud",
-            params = {
-                event = "weedprocessing:processLeaf",
-                args = { leaf = leaf, bud = "weed_" .. identifier .. "_bud" }
-            }
-        })
-    end
-
-    exports['qb-menu']:openMenu(processingMenu)
+    lib.showContext('weed_processing_menu')
 end
+
+
+
+lib.registerContext({
+    id = 'weed_packing_menu',
+    title = 'Pack Weed',
+    options = {
+        {
+            title = 'Pack AK47',
+            description = '1 AK47 Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_ak47_bud', packed = 'weed_ak47' }
+        },
+        {
+            title = 'Pack AMNESIA',
+            description = '1 Amnesia Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_amnesia_bud', packed = 'weed_amnesia' }
+        },
+        {
+            title = 'Pack PURPLE HAZE',
+            description = '1 Purple Haze Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_purple_haze_bud', packed = 'weed_purplehaze' }
+        },
+        {
+            title = 'Pack OG KUSH',
+            description = '1 OG Kush Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_og_kush_bud', packed = 'weed_ogkush' }
+        },
+        {
+            title = 'Pack SKUNK',
+            description = '1 Skunk Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_skunk_bud', packed = 'weed_skunk' }
+        },
+        {
+            title = 'Pack WHITE WIDOW',
+            description = '1 White Widow Bud + 1 Empty Bag',
+            icon = 'box',
+            event = 'weedprocessing:packWeed',
+            args = { bud = 'weed_white_widow_bud', packed = 'weed_whitewidow' }
+        }
+    }
+})
 
 function OpenPackingMenu()
-    local packingMenu = {
-        { header = "📦 Pack Weed", isMenuHeader = true }
-    }
-
-    local budToWeed = {
-        ["weed_ak47_bud"]         = "ak47",
-        ["weed_amnesia_bud"]      = "amnesia",
-        ["weed_purple_haze_bud"]  = "purplehaze",
-        ["weed_og_kush_bud"]      = "ogkush",
-        ["weed_skunk_bud"]        = "skunk",
-        ["weed_white_widow_bud"]  = "white_widow"
-    }
-
-    for bud, identifier in pairs(budToWeed) do
-        local displayName = identifier:upper()
-        table.insert(packingMenu, {
-            header = "📦 Pack " .. displayName,
-            txt = "🛠️ Requires: 1 " .. displayName .. " Bud & 1 Empty Bag",
-            params = {
-                event = "weedprocessing:packWeed",
-                args = { bud = bud, packed = "weed_" .. identifier }
-            }
-        })
-    end
-
-    exports['qb-menu']:openMenu(packingMenu)
+    lib.showContext('weed_packing_menu')
 end
 
+
+
 RegisterNetEvent("weedprocessing:processLeaf", function(data)
-    QBCore.Functions.TriggerCallback('weedprocessing:server:checkLeaf', function(hasItem)
+    lib.callback('weedprocessing:server:checkLeaf', false, function(hasItem)
         if hasItem then
             StartProcessing(12000, "Processing Weed...", "PROP_HUMAN_PARKING_METER", "weedprocessing:server:processLeaf", data, "bkr_prop_weed_bud_01a")
         end
@@ -163,7 +189,7 @@ RegisterNetEvent("weedprocessing:processLeaf", function(data)
 end)
 
 RegisterNetEvent("weedprocessing:packWeed", function(data)
-    QBCore.Functions.TriggerCallback('weedprocessing:server:checkPack', function(hasItems)
+    lib.callback('weedprocessing:server:checkPack', false, function(hasItems)
         if hasItems then
             StartProcessing(8000, "Packing Weed...", "PROP_HUMAN_PARKING_METER", "weedprocessing:server:packWeed", data, "sf_prop_sf_bag_weed_01b")
         end

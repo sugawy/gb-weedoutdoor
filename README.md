@@ -1,3 +1,5 @@
+made it work cause i was bored. thanks grossbean
+
 Hi.
 
 I am presenting you a QBCore-friendly script that works with default resources.
@@ -62,168 +64,261 @@ Use: /tp -36.9, -2689.80, 6.0
 
 ---
 
-ADD THESE INTO "qb-core/shared/items.lua":
+ADD THESE INTO OX_INV
 
 ---
-['weed_ak47_bud'] = {
-    name = 'weed_ak47_bud', 
-    label = 'AK47 Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_ak47_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'Fresh AK47 cannabis bud, ready for processing or use'
-},
-
-['weed_amnesia_bud'] = {
-    name = 'weed_amnesia_bud', 
-    label = 'Amnesia Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_amnesia_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'A high-quality bud from an Amnesia cannabis plant'
-},
-
-['weed_purple_haze_bud'] = {
-    name = 'weed_purple_haze_bud', 
-    label = 'Purple Haze Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_purple_haze_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'A potent bud from a Purple Haze cannabis plant'
-},
-
-['weed_og_kush_bud'] = {
-    name = 'weed_og_kush_bud', 
-    label = 'OG Kush Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_og_kush_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'Premium OG Kush bud, known for its strong effects'
-},
-
-['weed_skunk_bud'] = {
-    name = 'weed_skunk_bud', 
-    label = 'Skunk Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_skunk_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'A strong-smelling bud from a Skunk strain cannabis plant'
-},
-
-['weed_white_widow_bud'] = {
-    name = 'weed_white_widow_bud', 
-    label = 'White Widow Bud', 
-    weight = 50, 
-    type = 'item', 
-    image = 'weed_white_widow_bud.png', 
-    unique = false, 
-    useable = false, 
-    description = 'A legendary White Widow bud, prized for its balanced high'
-},
-
+      ['weed_ak47_bud'] = {
+        label = 'AK47 Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Fresh AK47 cannabis bud, ready for processing or use',
+        client = {},
+    },
+    
+    ['weed_amnesia_bud'] = {
+        label = 'Amnesia Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'A high-quality bud from an Amnesia cannabis plant',
+        client = {},
+    },
+    
+    ['weed_purple_haze_bud'] = {
+        label = 'Purple Haze Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'A potent bud from a Purple Haze cannabis plant',
+        client = {},
+    },
+    
+    ['weed_og_kush_bud'] = {
+        label = 'OG Kush Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Premium OG Kush bud, known for its strong effects',
+        client = {},
+    },
+    
+    ['weed_skunk_bud'] = {
+        label = 'Skunk Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'A strong-smelling bud from a Skunk strain cannabis plant',
+        client = {},
+    },
+    
+    ['weed_white_widow_bud'] = {
+        label = 'White Widow Bud',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'A legendary White Widow bud, prized for its balanced high',
+        client = {},
+    },
+    
     ['weed_ak47_leaf'] = {
-        name = 'weed_ak47_leaf', 
-        label = 'AK47 Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_ak47_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from an AK47 plant'
+        label = 'AK47 Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from an AK47 plant',
+        client = {},
     },
-
+    
     ['weed_amnesia_leaf'] = {
-        name = 'weed_amnesia_leaf', 
-        label = 'Amnesia Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_amnesia_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from an Amnesia plant'
+        label = 'Amnesia Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from an Amnesia plant',
+        client = {},
     },
-
+    
     ['weed_purple_haze_leaf'] = {
-        name = 'weed_purple_haze_leaf', 
-        label = 'Purple Haze Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_purple_haze_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from a Purple Haze plant'
+        label = 'Purple Haze Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from a Purple Haze plant',
+        client = {},
     },
-
+    
     ['weed_og_kush_leaf'] = {
-        name = 'weed_og_kush_leaf', 
-        label = 'OG Kush Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_og_kush_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from an OG Kush plant'
+        label = 'OG Kush Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from an OG Kush plant',
+        client = {},
     },
-
+    
     ['weed_white_widow_leaf'] = {
-        name = 'weed_white_widow_leaf', 
-        label = 'White Widow Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_white_widow_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from a White Widow plant'
+        label = 'White Widow Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from a White Widow plant',
+        client = {},
     },
-
+    
     ['weed_skunk_leaf'] = {
-        name = 'weed_skunk_leaf', 
-        label = 'Skunk Leaf', 
-        weight = 50, 
-        type = 'item', 
-        image = 'weed_skunk_leaf.png', 
-        unique = false, 
-        useable = false, 
-        description = 'Weed leaves from a Skunk plant'
+        label = 'Skunk Leaf',
+        weight = 50,
+        stack = true,
+        close = false,
+        description = 'Weed leaves from a Skunk plant',
+        client = {},
     },
 
----
-
-AND THIS : 
-
-
-weed_whitewidow  = { name = 'weed_whitewidow', label = 'White Widow 2g', weight = 200, type = 'item', image = 'weed_baggy_whitewidow.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g White Widow' },
-weed_skunk       = { name = 'weed_skunk', label = 'Skunk 2g', weight = 200, type = 'item', image = 'weed_baggy_skunk.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g Skunk' },
-weed_purplehaze  = { name = 'weed_purplehaze', label = 'Purple Haze 2g', weight = 200, type = 'item', image = 'weed_baggy_purplehaze.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g Purple Haze' },
-weed_ogkush      = { name = 'weed_ogkush', label = 'OGKush 2g', weight = 200, type = 'item', image = 'weed_baggy_ogkush.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g OG Kush' },
-weed_amnesia     = { name = 'weed_amnesia', label = 'Amnesia 2g', weight = 200, type = 'item', image = 'weed_baggy_amnesia.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g Amnesia' },
-weed_ak47        = { name = 'weed_ak47', label = 'AK47 2g', weight = 200, type = 'item', image = 'weed_baggy_ak47.png', unique = false, useable = true, shouldClose = false, description = 'A weed bag with 2g AK47' },
-
-weed_whitewidow_seed = { name = 'weed_whitewidow_seed', label = 'White Widow Seed', weight = 0, type = 'item', image = 'weed_whitewidow_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of White Widow' },
-weed_skunk_seed      = { name = 'weed_skunk_seed', label = 'Skunk Seed', weight = 0, type = 'item', image = 'weed_skunk_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of Skunk' },
-weed_purplehaze_seed = { name = 'weed_purplehaze_seed', label = 'Purple Haze Seed', weight = 0, type = 'item', image = 'weed_purplehaze_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of Purple Haze' },
-weed_ogkush_seed     = { name = 'weed_ogkush_seed', label = 'OGKush Seed', weight = 0, type = 'item', image = 'weed_ogkush_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of OG Kush' },
-weed_amnesia_seed    = { name = 'weed_amnesia_seed', label = 'Amnesia Seed', weight = 0, type = 'item', image = 'weed_amnesia_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of Amnesia' },
-weed_ak47_seed       = { name = 'weed_ak47_seed', label = 'AK47 Seed', weight = 0, type = 'item', image = 'weed_ak47_seed.png', unique = false, useable = true, shouldClose = true, description = 'A weed seed of AK47' },
-
-empty_weed_bag = { name = 'empty_weed_bag', label = 'Empty Weed Bag', weight = 0, type = 'item', image = 'weed_baggy_empty.png', unique = false, useable = true, shouldClose = true, description = 'A small empty bag' },
-weed_nutrition = { name = 'weed_nutrition', label = 'Plant Fertilizer', weight = 2000, type = 'item', image = 'weed_nutrition.png', unique = false, useable = true, shouldClose = true, description = 'Plant nutrition' },
-
+    ['weed_whitewidow'] = {
+        label = 'White Widow 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g White Widow',
+        client = {},
+        image = 'weed_baggy_whitewidow.png',
+    },
+    
+    ['weed_skunk'] = {
+        label = 'Skunk 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g Skunk',
+        client = {},
+        image = 'weed_baggy_skunk.png',
+    },
+    
+    ['weed_purplehaze'] = {
+        label = 'Purple Haze 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g Purple Haze',
+        client = {},
+        image = 'weed_baggy_purplehaze.png',
+    },
+    
+    ['weed_ogkush'] = {
+        label = 'OGKush 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g OG Kush',
+        client = {},
+        image = 'weed_baggy_ogkush.png',
+    },
+    
+    ['weed_amnesia'] = {
+        label = 'Amnesia 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g Amnesia',
+        client = {},
+        image = 'weed_baggy_amnesia.png',
+    },
+    
+    ['weed_ak47'] = {
+        label = 'AK47 2g',
+        weight = 200,
+        stack = true,
+        close = false,
+        description = 'A weed bag with 2g AK47',
+        client = {},
+        image = 'weed_baggy_ak47.png',
+    },
+    
+    ['weed_whitewidow_seed'] = {
+        label = 'White Widow Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of White Widow',
+        client = {},
+        image = 'weed_whitewidow_seed.png',
+    },
+    
+    ['weed_skunk_seed'] = {
+        label = 'Skunk Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of Skunk',
+        client = {},
+        image = 'weed_skunk_seed.png',
+    },
+    
+    ['weed_purplehaze_seed'] = {
+        label = 'Purple Haze Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of Purple Haze',
+        client = {},
+        image = 'weed_purplehaze_seed.png',
+    },
+    
+    ['weed_ogkush_seed'] = {
+        label = 'OGKush Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of OG Kush',
+        client = {},
+        image = 'weed_ogkush_seed.png',
+    },
+    
+    ['weed_amnesia_seed'] = {
+        label = 'Amnesia Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of Amnesia',
+        client = {},
+        image = 'weed_amnesia_seed.png',
+    },
+    
+    ['weed_ak47_seed'] = {
+        label = 'AK47 Seed',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A weed seed of AK47',
+        client = {},
+        image = 'weed_ak47_seed.png',
+    },
+    
+    ['empty_weed_bag'] = {
+        label = 'Empty Weed Bag',
+        weight = 0,
+        stack = true,
+        close = true,
+        description = 'A small empty bag',
+        client = {},
+        image = 'weed_baggy_empty.png',
+    },
+    
+    ['weed_nutrition'] = {
+        label = 'Plant Fertilizer',
+        weight = 2000,
+        stack = true,
+        close = true,
+        description = 'Plant nutrition',
+        client = {},
+        image = 'weed_nutrition.png',
+    },
 ---
 
 COPY AND PASTE THE IMAGES FROM THE IMAGES FOLDER INTO:
 
-qb-inventory/html/images/
+ox_inv images folder
 
 (If it asks you to overwrite existing files, press YES)
 
@@ -237,3 +332,4 @@ Another gift to the QBCore community for those wanting to learn how to script in
 Good luck and enjoy!
 
 – Grossbean
+
