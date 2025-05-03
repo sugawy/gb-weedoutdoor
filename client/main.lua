@@ -45,8 +45,8 @@ local function CreateWeedPlant(plant)
     local model = GetHashKey(plant.model)
 
     RequestModel(model)
-    while not HasModelLoaded(model) do Wait(10) end
-
+    while not HasModelLoaded(model) do Wait(150) end
+    if DoesEntityExist(obj) then DeleteEntity(obj) end
     local obj = CreateObject(model, coords.x, coords.y, coords.z, false, false, false)
     PlaceObjectOnGroundProperly(obj)
     FreezeEntityPosition(obj, true)
@@ -102,6 +102,7 @@ local function spawnOutdoorPlants(plants)
         local obj = CreateWeedPlant(plant)
         if obj then spawnedPlantObjects[plant.id] = obj end
     end
+    
 end
 
 RegisterNetEvent('weed:client:syncPlants', function(plants)
